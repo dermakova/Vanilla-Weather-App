@@ -18,11 +18,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="src/style.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <div class="container">
+    <div class="container" style="height: 575px">
       <div class="row">
         <span class="first">
         <div class="col-6" id="day">
@@ -76,8 +76,10 @@
               <br />
             <span class="temperature" id="temp">°</span>
             <span id="units">
+              <span class="celfarlink">
               <a href="#" id="celcius-link">C</a> |
               <a href="#" id="farenheit-link">F</a>
+              </span>
             </span>
             <br>
             <br>
