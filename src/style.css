@@ -1,3 +1,67 @@
+.container {
+  text-align: center;
+  width: 800px;
+  height: 500px;
+  margin: 0 auto;
+  background: lightpink;
+  border-radius: 25px;
+  border: solid 4px pink;
+  box-shadow: 1px 1px 25px 5px rgb(17 17 16 / 15%);
+  font-family: "Julius Sans One", sans-serif;
+  opacity: 80%;
+  margin-top: 20px;
+}
+
 h1 {
-  color: blue;
+  margin-top: 20px;
+}
+
+.search {
+  position: relative;
+  top: -70px;
+}
+
+.col-6future {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+ul {
+  padding: 10px;
+  list-style: none;
+  display: block;
+}
+
+#dateHere {
+  text-decoration: none;
+}
+
+.chart {
+  padding: 8px;
+  margin: 5px;
+  border: solid 1px pink;
+  border-radius: 10px;
+}
+
+.mag {
+  position: relative;
+  right: -20px;
+  bottom: 65px;
+}
+
+.update {
+  position: relative;
+  top: -400px;
+}
+
+.form-control {
+  background: pink;
+  border: none;
+}
+
+.credit {
+  position: relative;
+  bottom: -150px;
+  font-size: smaller;
 }

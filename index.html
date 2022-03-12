@@ -3,21 +3,192 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=, initial-scale=1.0" />
-    <link rel="stylesheet" href="src/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>⛅Weather App</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <title>Weather App ⛅</title>
+    <script
+      src="https://kit.fontawesome.com/a759250c49.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <div class="containter">
-      <h1>Hello World</h1>
-      <a href="" class="btn btn-primary">Click Me</a>
-    </div>
-    <script src="src/app.js"></script>
+    <div class="container">
+      <div class="row">
+        <span class="first">
+        <div class="col-6" id="day">
+          <h1>M O N D A Y</h1>
+          <hr />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3" id="month"></div>
+        <div class="col-3" id="time"></div>
+      </span>
+        <div class="col-1 mag"><i class="fas fa-search"></i></div>
+        <div class="col search">
+          </i>
+          <form id="search-form">
+          <input
+            type="text"
+            placeholder="Search for a city"
+            autocomplete="off"
+            autofocus="on"
+            class="form-control col 3"
+            id="city-input"
+          />
+          <input type="submit" value="search" class="form-control col 3"/>
+          <input type="submit" value="current" class="form-control col 3" id="current-button"/>
+          </form>
+          <div class="row">
+            <div class="col-6future">
+              <ul>
+                <li class="chart">TUES | ☀ | 86º</li>
+                <hr />
+                <li class="chart">WEDS | ☀ | 88º</li>
+                <hr />
+                <li class="chart">THURS | 🌨 | 77º</li>
+                <hr />
+                <li class="chart">FRI | 🌦 | 85º</li>
+                <hr />
+                <li class="chart">SAT | 🌤 | 87º</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="update">
+        <div class="col-6">
+          <h4 id="city"></h4>
+          <br />
+            <h2>
+              ⛅
+              <br />
+              <span id="desc"></span>
+              <br />
+            <span class="temperature" id="temp">°</span>
+            <span id="units">
+              <a href="#" id="celcius-link">C</a> |
+              <a href="#" id="farenheit-link">F</a>
+            </span>
+            <br>
+            <br>
+            Humidity: <span id="humid"></span>%
+            <br>
+            Wind: <span id="wind"></span> mph
+						</h2>
+						</div>
+						<span class="credit">Coded with ♥ by Daria E</span>
+					</div>
+				</div>
+      </div>
+		</div>
+		
   </body>
+  <script>
+
+
+    //Search bar
+function search(event) {
+  event.preventDefault();
+  let cityElement = document.querySelector("#city");
+  let cityInput = document.querySelector("#cityInput");
+  cityElement.innerHTML = cityInput.value;
+}   
+
+    let searchInput = document.querySelector("#search-form");
+
+    searchInput.addEventListener("submit", handleSubmit);
+
+
+//Time and date
+let dateElement = document.querySelector("#time");
+let daySelector = document.querySelector("h1");
+let monthElement = document.querySelector("#month");
+let currentTime = new Date();
+let hours = currentTime.getHours();
+if (hours < 10) {
+  hours = `0${hours}`;
+}
+let minutes = currentTime.getMinutes();
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
+let dayIndex = currentTime.getDay();
+let monthIndex = currentTime.getMonth();
+let dateIndex = currentTime.getDate();
+let yearIndex = currentTime.getFullYear();
+let days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+let month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+dateElement.innerHTML = `${hours}:${minutes}`;
+daySelector.innerHTML = `${days[dayIndex]}`;
+monthElement.innerHTML = `${month[monthIndex]} ${dateIndex}, ${yearIndex}`;
+
+//Api search
+function displayWeatherCondition(response)  {
+  document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#temp").innerHTML = Math.round(response.data.main.temp);
+  document.querySelector("#humid").innerHTML = response.data.main.humidity;
+  document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
+  document.querySelector("#desc").innerHTML = response.data.weather[0].main;
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let city = document.querySelector("#city-input").value;
+  searchCity(city);
+}
+
+function searchCity(city) {
+  let apiKey = "eae85415b3239017be18c503fb99491e";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeatherCondition);
+}
+
+searchCity("New York");
+
+function searchLocation(position) {
+  let apiKey = "eae85415b3239017be18c503fb99491e";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeatherCondition);
+}
+
+function getCurrentLocation(event){
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(searchLocation);
+}
+
+//Temp Challenge (Bonus)
+
+function convertToFarenheit(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector("#temp");
+  tempElement.innerHTML = 66 + "°";
+}
+
+function convertToCelcius(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector("#temp");
+  tempElement.innerHTML = 19 + "°";
+}
+
+let farenheitLink = document.querySelector("#farenheit-link");
+farenheitLink.addEventListener("click", convertToFarenheit);
+
+let celciusLink = document.querySelector("#celcius-link");
+celciusLink.addEventListener("click", convertToCelcius);
+
+let currentLocationButton = document.querySelector("#current-button");
+currentLocationButton.addEventListener("click", getCurrentLocation);
+
+  </script>
 </html>
