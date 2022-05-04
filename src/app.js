@@ -66,6 +66,10 @@ function displayWeatherCondition(response) {
     response.data.wind.speed
   );
   document.querySelector("#desc").innerHTML = response.data.weather[0].main;
+  iconElement.setAttribute(
+    "alt",
+    `http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`
+  );
 }
 
 function handleSubmit(event) {
