@@ -82,6 +82,10 @@ function displayWeatherCondition(response) {
   );
   iconElement.setAttribute("alt", response.weather[0].description);
 
+  celciusTemperature = response.data.main.temp;
+
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
+
   searchLocation(response.data.coord);
 }
 
@@ -103,23 +107,31 @@ searchCity("New York");
 
 //Celcius-Farenheit Switch
 
-function convertToFarenheit(event) {
+function displayFarenheirTemperature(event) {
   event.preventDefault();
-  let tempElement = document.querySelector("#temp");
-  tempElement.innerHTML = 66 + "°";
+  let temperatureElement = document.querySelector("#temperature");
+
+  celciusLink.classList.remove("active");
+  farenheitLink.classList.add("active");
+  let farenheitTemperature = (celciusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(farenheitTemperature);
 }
 
-function convertToCelcius(event) {
+function displayCelciusTemperature(event) {
   event.preventDefault();
-  let tempElement = document.querySelector("#temp");
-  tempElement.innerHTML = 19 + "°";
+  celciusLink.classList.add("active");
+  farenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
 }
+
+let celciusTemperature = null;
 
 let farenheitLink = document.querySelector("#farenheit-link");
-farenheitLink.addEventListener("click", convertToFarenheit);
+farenheitLink.addEventListener("click", displayFarenheitTemperature);
 
 let celciusLink = document.querySelector("#celcius-link");
-celciusLink.addEventListener("click", convertToCelcius);
+celciusLink.addEventListener("click", displayCelciusTemperature);
 
 //Current location
 function getCurrentLocation(event) {
