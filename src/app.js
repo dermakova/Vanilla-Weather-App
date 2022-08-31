@@ -107,7 +107,7 @@ searchCity("New York");
 
 //Celcius-Farenheit Switch
 
-function displayFarenheirTemperature(event) {
+function displayFarenheitTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
 
