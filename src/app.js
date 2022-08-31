@@ -107,31 +107,23 @@ searchCity("New York");
 
 //Celcius-Farenheit Switch
 
-function displayFarenheitTemperature(event) {
+function convertToFarenheit(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-
-  celciusLink.classList.remove("active");
-  farenheitLink.classList.add("active");
-  let farenheitTemperature = (celciusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(farenheitTemperature);
+  let tempElement = document.querySelector("#temp");
+  tempElement.innerHTML = 66 + "°";
 }
 
-function displayCelciusTemperature(event) {
+function convertToCelcius(event) {
   event.preventDefault();
-  celciusLink.classList.add("active");
-  farenheitLink.classList.remove("active");
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(celciusTemperature);
+  let tempElement = document.querySelector("#temp");
+  tempElement.innerHTML = 19 + "°";
 }
-
-let celciusTemperature = null;
 
 let farenheitLink = document.querySelector("#farenheit-link");
-farenheitLink.addEventListener("click", displayFarenheitTemperature);
+farenheitLink.addEventListener("click", convertToFarenheit);
 
 let celciusLink = document.querySelector("#celcius-link");
-celciusLink.addEventListener("click", displayCelciusTemperature);
+celciusLink.addEventListener("click", convertToCelcius);
 
 //Current location
 function getCurrentLocation(event) {
